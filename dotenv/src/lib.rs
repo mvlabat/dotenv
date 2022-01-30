@@ -145,9 +145,8 @@ pub fn from_filename<P: AsRef<Path>>(filename: P) -> Result<PathBuf> {
 ///   println!("{}={}", key, val);
 /// }
 /// ```
-pub fn from_filename_iter<P: AsRef<Path>>(filename: P) -> Result<Iter<File>> {
-    let (_, iter) = Finder::new().filename(filename.as_ref()).find()?;
-    Ok(iter)
+pub fn from_filename_iter<P: AsRef<Path>>(filename: P) -> Result<(PathBuf, Iter<File>)> {
+    Finder::new().filename(filename.as_ref()).find()
 }
 
 /// This is usually what you want.
@@ -175,7 +174,6 @@ pub fn dotenv() -> Result<PathBuf> {
 ///   println!("{}={}", key, val);
 /// }
 /// ```
-pub fn dotenv_iter() -> Result<iter::Iter<File>> {
-    let (_, iter) = Finder::new().find()?;
-    Ok(iter)
+pub fn dotenv_iter() -> Result<(PathBuf, iter::Iter<File>)> {
+    Finder::new().find()
 }
